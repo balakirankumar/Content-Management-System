@@ -2,7 +2,7 @@
 
 ### CMS is just like BlogPost but with slight difference is using only by API's
 
-### Download here [project](url) to run locally
+### Download here [project](https://github.com/balakirankumar/Content-Management-System/archive/refs/heads/master.zip) to run locally
 
 ### Extract the folder
 
@@ -133,3 +133,4 @@ python run.py
 
 
 #### Tree Structure
+![tree path](https://raw.githubusercontent.com/balakirankumar/Content-Management-System/master/Tree.PNG)
