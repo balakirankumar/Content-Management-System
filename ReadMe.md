@@ -59,7 +59,7 @@ python run.py
 
    6. Download file attached to post with document url [http://localhost:5001/document/download/<string:filename>](http://localhost:5001/post/document/download/<string:filename>)
 
-   6. Search by multiple query params [http://localhost:5001//post/search?title=first post&body=&tag=dragon](http://localhost:5001//post/search?title=firstpost&body=&tag=dragon)
+   6. Search by multiple query params [http://localhost:5001/post/search?title=first post&body=&tag=dragon](http:/localhost:5001//post/search?title=firstpost&body=&tag=dragon)
 
 
 2. ### ***POST REQUESTS***
