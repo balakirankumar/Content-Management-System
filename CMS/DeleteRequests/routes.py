@@ -6,7 +6,7 @@ import json
 
 delete = Blueprint('deleteRequest',__name__)
 
-@delete.route("/user/post/delete/<int:id>",methods=["DELETE"])
+@delete.route("/deletePost/<int:id>",methods=["DELETE"])
 def deletePost(id):
     try:
         if request.authorization :
@@ -34,4 +34,4 @@ def deletePost(id):
         else:
             return jsonify({"Error":"You need need to add authorization to access it."}),401
     except Exception as E:
-        return jsonify({"url":"'/post/delete/<id>'"}),400
+        return jsonify({"url":"'/deletePost/<id>'"}),400

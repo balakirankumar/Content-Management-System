@@ -7,7 +7,7 @@ import json
 user = Blueprint('user',__name__)
 
 
-@user.route('/user/register',methods=["POST"])
+@user.route('/register',methods=["POST"])
 def register():
     data=request.json
     if data:
@@ -15,19 +15,12 @@ def register():
             verifed=validate(**{"email":data.get('email'),'password':data.get('password'),"fullname":data.get('fullname'),"phonenumber":data.get('phonenumber'),"pincode":data.get('pincode')})
             print("VERIFIED",verifed)
             if verifed :
-                email = data.get('email')
-                password = bcrypt.generate_password_hash(data.get('password'))
-                fullname = data.get('fullname')
-                address = data.get('address')
-                phonenumber = data.get('phonenumber')
-                city = data.get('city')
-                state = data.get('state')
-                country = data.get('country')
-                pincode = data.get('pincode')
                 if User.query.filter_by(email=email).first():
                     return jsonify({"Error":f"User already exist with {email}. Please use other email"})
-                user=User(email=email,password=password,fullname=fullname,address=address,phonenumber=phonenumber,city=city,
-                    state=state,country=country,pincode=pincode)
+                user=User(email=data.get('email'),password=bcrypt.generate_password_hash(data.get('password')),
+                    fullname=data.get('fullname'),address = data.get('address'),
+                    phonenumber=data.get('phonenumber'),city=data.get('city'),
+                    state=data.get('state'),country=data.get('country'),pincode=data.get('pincode'))
                 db.session.add(user)
                 db.session.commit()
                 return jsonify({"status":"Successfull registration use email and password ","email":user.email,"fullname":user.fullname})
