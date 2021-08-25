@@ -33,7 +33,7 @@ cd Content-Management-System-master
 ### Install required modules from `Requirements.txt`
 
 ```bash
-pip install -r requirements.txt
+pip install -r Requirements.txt
 ```
 
 Run the application by command
