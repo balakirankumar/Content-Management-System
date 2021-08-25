@@ -9,7 +9,7 @@ put = Blueprint('putRequests',__name__)
 
 
 
-@put.route('/user/post/uploadfile/<int:id>',methods=["PUT"])
+@put.route('/uploadFile/<int:id>',methods=["PUT"])
 def uploadFile(id):
     try:
         data=request.json
@@ -60,7 +60,7 @@ def uploadFile(id):
 
 
 
-@put.route('/user/post/updatepost/<int:id>',methods=["PUT"])
+@put.route('/updatepost/<int:id>',methods=["PUT"])
 def updatePost(id):
     try:
         data=request.json

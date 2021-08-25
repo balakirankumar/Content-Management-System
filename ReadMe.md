@@ -43,44 +43,46 @@ python run.py
 ```
 1. ### ***GET REQUESTS***
     1. Get all 'Posts' at  
-[http://localhost:5000/user/post/all](http://localhost:5000//user/post/all)
+[http://localhost:5001/post/all](http://localhost:5001/post/all)
 
    2. Search Post by `Postid` at   
-      [http://localhost:5000/user/post/searchbyid/1](http://localhost:5000/user/post/searchbyid/1)
+      [http://localhost:5001/searchPostById/1](http://localhost:5001/searchPostById/1)
 
    3. Search Post by `Author` at                            
- [http://localhost:5000/user/post/searchbyauthor/fullname](http://localhost:5000/user/post/searchbyauthor/fullname)
+ [http://localhost:5001/searchPostByAuthor/fullname](http://localhost:5001/searchPostByAuthor/fullname)
 
    4. Search Post by `Title` at                                
- [http://localhost:5000/user/posts/searchbytitle/title](http://localhost:5000/user/posts/searchbytitle/title)  
+ [http://localhost:5001/searchPostByTitle/title](http://localhost:5001/searchPostByTitle/title)  
 
    5. Search Post by `Tag` at                                     
- [http://localhost:5000/user/posts/searchbytags/tag](http://localhost:5000/user/posts/searchbytags/tag)
+ [http://localhost:5001/searchbytags/tag](http://localhost:5001/searchPostByTags/tag)
 
-   6. Download file attached to post with document url [http://localhost:5000/user/post/document/download/<string:filename>](http://localhost:5000/user/post/document/download/<string:filename>)
+   6. Download file attached to post with document url [http://localhost:5001/document/download/<string:filename>](http://localhost:5001/post/document/download/<string:filename>)
+
+   6. Search by multiple query params [http://localhost:5001//post/search?title=first post&body=&tag=dragon](http://localhost:5001//post/search?title=firstpost&body=&tag=dragon)
 
 
 2. ### ***POST REQUESTS***
 
-   1. Add a Post by authorizing  
-[http://localhost:5000/user/post/addpost](http://localhost:5000/user/post/addpost)
+   1. Add a `Post` by authorizing  
+[http://localhost:5001/addpost](http://localhost:5001/addpost)
 
    2. Register `User` using   
-[http://localhost:5000/user/register](http://localhost:5000/user/register)
+[http://localhost:5001/register](http://localhost:5001/register)
 
 
 3. ### ***PUT REQUESTS***
    1. Update Post using `Postid` by authorizing                 
-    [http://localhost:5000/user/post/updatepost/<int:id>](http://localhost:5000/user/post/updatepost/<int:id>)
+    [http://localhost:5001/updatepost/<int:id>](http://localhost:5001/updatepost/<int:id>)
 
 
    2. Upload file using `Postid` by authorizing using           
-    [http://localhost:5000/user/post/uploadfile/<int:id>](http://localhost:5000/user/post/uploadfile/<int:id>)
+    [http://localhost:5001/uploadFile/<int:id>](http://localhost:5001/uploadFile/<int:id>)
 
 4. ### ***DELETE REQUEST***
 
     1. Delete post with `Postid` by authorizing using               
-        [http://localhost:5000/user/post/delete/<int:id>](http://localhost:5000/user/post/delete/<int:id>)
+        [http://localhost:5001/deletePost/<int:id>](http://localhost:5001/deletePost/<int:id>)
 
 
 
@@ -101,8 +103,8 @@ python run.py
        }
       ```
 2.  Adding Post
-      
-     should add only form data(-F) in curl or postman(i.e json data as a string ). 
+
+     should add only form data(-F) in curl or postman(i.e json data as a string ).
 
        ```Json
        {

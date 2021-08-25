@@ -1,13 +1,14 @@
 from flask import request, Blueprint, jsonify, send_from_directory
 from CMS.model import User,Content
+from CMS import app
 import json
 
 
 get = Blueprint('getRequest',__name__)
 
 
-
-@get.route('/user/post/all')
+@get.route('/')
+@get.route('/post/all')
 def allPosts():
     data=Content.query.all()
     if data:
@@ -23,7 +24,7 @@ def allPosts():
 
 
 
-@get.route('/user/post/searchbyid/<int:id>')
+@get.route('/searchPostById/<int:id>')
 def singlePost(id):
     print(id)
     data=Content.query.get(id)
@@ -36,7 +37,7 @@ def singlePost(id):
         return jsonify({"Error":f"Post with id of {id} does'nt exist"}),404
 
 
-@get.route('/user/post/searchbyauthor/<string:fullname>')
+@get.route('/searchPostByAuthor/<string:fullname>')
 def postByAuthor(fullname):
     print(fullname)
     user=User.query.filter(User.fullname.contains(fullname)).all()
@@ -60,7 +61,7 @@ def postByAuthor(fullname):
 
 
 
-@get.route('/user/posts/searchbytitle/<string:title>')
+@get.route('/searchPostByTitle/<string:title>')
 def postByTitle(title):
     data=Content.query.filter(Content.title.contains(title)).all()
     print(data)
@@ -78,7 +79,7 @@ def postByTitle(title):
 
 
 
-@get.route('/user/posts/searchbytags/<string:tag>')
+@get.route('/searchPostByTags/<string:tag>')
 def postByTag(tag):
     data=Content.query.filter(Content.tags.contains(tag)).all()
     print(data)
@@ -97,6 +98,43 @@ def postByTag(tag):
 
 
 
-@get.route('/user/post/document/download/<string:path>',methods=["GET"])
+@get.route('/post/document/download/<string:path>',methods=["GET"])
 def downloadfile(path):
     return send_from_directory("static/documents/",path, as_attachment=True),200
+
+
+
+@get.route("/post/search")
+def search():
+    l=request.args
+    print(l)
+    if 'tag' in request.args and 'title' in request.args and 'body' in request.args:
+        content=Content.query.filter(Content.tags.contains(request.args.get('tag')) |
+                                Content.body.contains(request.args.get('body')) |
+                                Content.title.contains(request.args.get('title'))).all()
+    elif 'tag' in request.args and 'title' in request.args:
+        content=Content.query.filter(Content.tags.contains(request.args.get('tag')) |
+                                        Content.title.contains(request.args.get('title') )).all()
+
+    elif 'tag' in request.args and 'body' in request.args:
+        content=Content.query.filter(Content.tags.contains(request.args.get('tag')) |
+                                        Content.body.contains(request.args.get('body'))).all()
+
+    elif 'tag' in request.args:
+        content=Content.query.filter(Content.tags.contains(request.args.get('tag'))).all()
+
+    elif 'body' in request.args:
+        content=Content.query.filter(Content.body.contains(request.args.get('body'))).all()
+
+    elif 'title' in request.args:
+        content=Content.query.filter(Content.title.contains(request.args.get('title'))).all()
+
+    l=[]
+    for i in content:
+        d={}
+        d["author"]= i.author.fullname; d["body"]= i.body; d["document"]= i.document;
+        d["id"]= i.id; d["summary"]= i.summary; d["tags"]= json.loads(i.tags); d["title"]= i.title
+        l.append(d)
+    return jsonify(l)
+    return jsonify({'items':content})
+    print(l)

@@ -1,6 +1,6 @@
 from flask import request, Blueprint, jsonify
 from CMS.model import User,Content
-from CMS import db, bcrypt, app
+from CMS import db, bcrypt,app
 from .util import download_pdf
 import json, os
 
@@ -8,7 +8,7 @@ import json, os
 post = Blueprint('postRequests',__name__)
 
 
-@post.route('/user/post/addpost',methods=["POST"])
+@post.route('/addpost',methods=["POST"])
 def addPost():
     try:
         # data=request.json
@@ -23,7 +23,7 @@ def addPost():
                     if data.get('title') and data.get('body') and data.get('summary') :
                         name="Did'nt upload any thing"
                         if request.files.get('document') and request.files.get('document').filename.split('.')[-1] in ['txt','pdf']:
-                            name="localhost:5000/user/post/document/download/"+download_pdf(request.files.get('document'))
+                            name=f"localhost:{app.config['PORT']}/post/document/download/"+download_pdf(request.files.get('document'))
                         content = Content(title = data.get('title'), body=data.get('body'), summary=data.get('summary'), document=name, tags=json.dumps(data.get('tags')), author=user)
                         db.session.add(content)
                         db.session.commit()
